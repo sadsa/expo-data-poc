@@ -1,11 +1,11 @@
 import { http, HttpResponse } from 'msw';
 
 export const handlers = [
-  http.get('/api/installerAppConfig', () => {
+  http.get('/api/installer-app-config', () => {
     return HttpResponse.json({
       supportedVersions: {
-        android: '>=1.0.0',
-        ios: '>=1.0.0'
+        android: '>=2.0.0',
+        ios: '>=2.0.0'
       }
     });
   })

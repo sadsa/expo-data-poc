@@ -4,8 +4,6 @@ export { handleRestApiError } from '~/utils/rest/handle-error';
 export { RestApiError } from '~/utils/rest/rest-api-error';
 
 /**
- * Support Panel REST API.
+ * Installer App REST API.
  */
-export const supportPanelApi = createRestApi(
-  process.env.EXPO_PUBLIC_SUPPORT_PANEL_API_ENDPOINT ?? ''
-);
+export const installerAppApi = createRestApi('');

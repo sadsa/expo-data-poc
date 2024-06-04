@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-import { supportPanelApi } from '~/services/support-panel-api';
+import { installerAppApi } from '~/services/installer-app-api';
 
 export const installerAppConfigSchema = z
   .object({
@@ -15,5 +15,8 @@ export const installerAppConfigSchema = z
  * Fetches installer application configuration data.
  */
 export async function getInstallerAppConfig() {
-  return supportPanelApi.get(`/installerAppConfig`, installerAppConfigSchema);
+  return installerAppApi.get(
+    `/api/installer-app-config`,
+    installerAppConfigSchema
+  );
 }
