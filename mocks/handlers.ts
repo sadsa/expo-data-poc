@@ -1,8 +1,12 @@
-import { http, HttpResponse } from "msw";
+import { http, HttpResponse } from 'msw';
 
 export const handlers = [
-  // Example handler
-  http.get("/api/example", () => {
-    return HttpResponse.json({ message: "Hello, world!" });
-  }),
+  http.get('/api/installerAppConfig', () => {
+    return HttpResponse.json({
+      supportedVersions: {
+        android: '>=1.0.0',
+        ios: '>=1.0.0'
+      }
+    });
+  })
 ];
