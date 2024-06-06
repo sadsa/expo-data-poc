@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { installerAppApi } from '~/services/installer-app-api';
+import { authorizationHeaders } from '~/utils/auth/headers';
 
 export const installerAppConfigSchema = z
   .object({
@@ -17,6 +18,8 @@ export const installerAppConfigSchema = z
 export async function getInstallerAppConfig() {
   return installerAppApi.get(
     `/api/installer-app-config`,
-    installerAppConfigSchema
+    installerAppConfigSchema,
+    undefined,
+    { headers: await authorizationHeaders() }
   );
 }
