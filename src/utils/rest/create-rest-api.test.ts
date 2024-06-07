@@ -28,7 +28,7 @@ describe('createRestApi', () => {
         })
       );
       const schema = z.object({ id: z.number() });
-      await expect(api.get('/test', schema)).rejects.toThrow(
+      expect(api.get('/test', schema)).rejects.toThrow(
         'API Response is not JSON'
       );
     });

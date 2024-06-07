@@ -1,6 +1,6 @@
 import '@testing-library/jest-native/extend-expect';
 import '@testing-library/jest-dom';
-import { server } from './mocks/server';
+import { server } from './src/mocks/server';
 
 // Load env.test variables
 import { load } from '@expo/env';
