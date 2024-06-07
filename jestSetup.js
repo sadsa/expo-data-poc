@@ -2,6 +2,10 @@ import '@testing-library/jest-native/extend-expect';
 import '@testing-library/jest-dom';
 import { server } from './mocks/server';
 
+// Load env.test variables
+import { load } from '@expo/env';
+load(process.cwd());
+
 // Establish API mocking before all tests.
 global.beforeAll(() => server.listen());
 

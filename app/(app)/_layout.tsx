@@ -8,7 +8,7 @@ export default function AppLayout() {
 
   // You can keep the splash screen open, or render a loading screen like we do here.
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return <Text aria-label="Loading">Loading...</Text>;
   }
 
   // Only require authentication within the (app) group's layout as users

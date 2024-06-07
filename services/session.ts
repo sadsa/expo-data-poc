@@ -16,6 +16,7 @@ const sessionSchema = z.object({
   environmentId: z.enum(['SYSCO', 'ODFL', 'DEFAULT'])
 });
 
+export type LoginResponse = z.infer<typeof loginResponseSchema>;
 export type Session = z.infer<typeof sessionSchema>;
 
 export enum EnvironmentId {
@@ -67,10 +68,13 @@ function getEnvironmentIdFromUsername(username: string) {
       : EnvironmentId.DEFAULT;
 }
 
+// We need access env variable like this until
+// this is fixed https://github.com/expo/expo/issues/26513
+const env = process.env;
 const environmentEndpoints = {
-  [EnvironmentId.SYSCO]: process.env.EXPO_PUBLIC_CORETEX_SYSCO_REST_API ?? '',
-  [EnvironmentId.ODFL]: process.env.EXPO_PUBLIC_CORETEX_ODFL_REST_API ?? '',
-  [EnvironmentId.DEFAULT]: process.env.EXPO_PUBLIC_CORETEX_360_REST_API ?? ''
+  [EnvironmentId.SYSCO]: env.EXPO_PUBLIC_CORETEX_SYSCO_REST_API ?? '',
+  [EnvironmentId.ODFL]: env.EXPO_PUBLIC_CORETEX_ODFL_REST_API ?? '',
+  [EnvironmentId.DEFAULT]: env.EXPO_PUBLIC_CORETEX_360_REST_API ?? ''
 };
 
 const getEndpointByEnvironmentId = (environmentId: EnvironmentId) => {

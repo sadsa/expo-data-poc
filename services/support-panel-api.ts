@@ -7,5 +7,5 @@ export { RestApiError } from '~/utils/rest/rest-api-error';
  * Support Panel REST API.
  */
 export const supportPanelApi = createRestApi(
-  process.env.EXPO_PUBLIC_SUPPORT_PANEL_API_ENDPOINT ?? ''
+  process.env.EXPO_PUBLIC_SUPPORT_PANEL_API ?? ''
 );

@@ -26,7 +26,7 @@ export type SignInFormProps = {
   onSubmit?: SubmitHandler<FormType>;
 };
 
-export default function SignIn() {
+export default function SignInPage() {
   const [submitError, setSubmitError] = useState('');
   const { signIn } = useSession();
   const {
@@ -44,7 +44,6 @@ export default function SignIn() {
   const onSubmit = async (data: FormType) => {
     try {
       await signIn(data.username, data.password);
-      console.log('signIn');
       // Navigate after signing in. You may want to tweak this to ensure sign-in is
       // successful before navigating.
       router.replace('/');
@@ -66,6 +65,8 @@ export default function SignIn() {
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
+            aria-label="Username Input"
+            accessibilityRole="text"
           />
         )}
         name="username"
@@ -84,17 +85,27 @@ export default function SignIn() {
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
+            aria-label="Password Input"
+            accessibilityRole="text"
           />
         )}
         name="password"
       />
       {errors.password && <Text>{errors.password.message}</Text>}
 
-      <Pressable onPress={handleSubmit(onSubmit)}>
+      <Pressable
+        onPress={handleSubmit(onSubmit)}
+        accessibilityRole="button"
+        aria-label="Submit Button"
+      >
         <Text>Submit</Text>
       </Pressable>
 
-      {submitError && <Text>Error: {submitError}</Text>}
+      {submitError && (
+        <Text accessibilityRole="alert" aria-label="Submit Error">
+          Error: {submitError}
+        </Text>
+      )}
     </View>
   );
 }
