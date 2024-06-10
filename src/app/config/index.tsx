@@ -1,15 +1,25 @@
+import { useQuery } from '@tanstack/react-query';
 import { Pressable, Text } from 'react-native';
 import { getInstallerAppConfig } from '~/data/installer-app-config';
 
-async function fetchConfig() {
-  const data = await getInstallerAppConfig();
-  alert(JSON.stringify(data));
-}
-
 export default function ConfigPage() {
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ['installer-app-config'],
+    queryFn: getInstallerAppConfig
+  });
+
+  if (isLoading) {
+    return <Text>Loading...</Text>;
+  }
+
+  if (!data) {
+    return <Text>No data</Text>;
+  }
+
   return (
-    <Pressable onPress={() => fetchConfig()}>
+    <Pressable onPress={() => refetch()}>
       <Text>Fetch config</Text>
+      <Text>{JSON.stringify(data)}</Text>
     </Pressable>
   );
 }

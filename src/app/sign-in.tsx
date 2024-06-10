@@ -53,7 +53,14 @@ export default function SignInPage() {
   };
 
   return (
-    <View>
+    <View
+      style={{
+        padding: 50,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+    >
       <Controller
         control={control}
         rules={{
@@ -67,6 +74,8 @@ export default function SignInPage() {
             value={value}
             aria-label="Username Input"
             accessibilityRole="text"
+            autoComplete="username"
+            textContentType="username"
           />
         )}
         name="username"
@@ -86,6 +95,9 @@ export default function SignInPage() {
             onChangeText={onChange}
             value={value}
             aria-label="Password Input"
+            autoComplete="password"
+            textContentType="password"
+            secureTextEntry
             accessibilityRole="text"
           />
         )}

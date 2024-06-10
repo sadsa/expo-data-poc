@@ -1,4 +1,3 @@
-// SignIn.test.js
 import { fireEvent, waitFor } from '@testing-library/react-native';
 import { http, HttpResponse } from 'msw';
 import { renderRouter, screen } from 'expo-router/testing-library';
@@ -8,10 +7,7 @@ import IndexPage from '~/app/(app)';
 import AppLayout from '~/app/(app)/_layout';
 import RootLayout from '~/app/_layout';
 import { LoginResponse } from '~/services/session';
-
-// We need access env variable like this until
-// this is fixed https://github.com/expo/expo/issues/26513
-const env = process.env;
+import { env } from '~/env';
 
 function setup() {
   return renderRouter(

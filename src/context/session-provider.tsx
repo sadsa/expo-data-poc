@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useStorageState } from '../hooks/use-storage-state';
 import { sessionService } from '~/services/session';
+import { env } from '~/env';
 
 const SessionContext = React.createContext<{
   signIn: (username: string, password: string) => Promise<void>;
@@ -19,7 +20,7 @@ const SessionContext = React.createContext<{
 // This hook can be used to access the user info.
 export function useSession() {
   const value = React.useContext(SessionContext);
-  if (process.env.NODE_ENV !== 'production') {
+  if (env.NODE_ENV !== 'production') {
     if (!value) {
       throw new Error('useSession must be wrapped in a <SessionProvider />');
     }

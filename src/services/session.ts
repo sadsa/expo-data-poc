@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { createRestApi } from '~/utils/rest/create-rest-api';
+import { env } from '~/env';
 
 const loginResponseSchema = z.object({
   Code: z.number(),
@@ -68,9 +69,6 @@ function getEnvironmentIdFromUsername(username: string) {
       : EnvironmentId.DEFAULT;
 }
 
-// We need access env variable like this until
-// this is fixed https://github.com/expo/expo/issues/26513
-const env = process.env;
 const environmentEndpoints = {
   [EnvironmentId.SYSCO]: env.EXPO_PUBLIC_CORETEX_SYSCO_REST_API ?? '',
   [EnvironmentId.ODFL]: env.EXPO_PUBLIC_CORETEX_ODFL_REST_API ?? '',
