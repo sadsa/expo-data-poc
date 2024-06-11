@@ -21,10 +21,14 @@ export type LoginResponse = z.infer<typeof loginResponseSchema>;
 export type Session = z.infer<typeof sessionSchema>;
 
 export enum EnvironmentId {
-  SYSCO = 'SYSCO',
   ODFL = 'ODFL',
+  SYSCO = 'SYSCO',
   DEFAULT = 'DEFAULT'
 }
+
+const ODFL_DOMAINS = new Set(
+  ['@odfl.com'].map((domain) => domain.trim().toLowerCase())
+);
 
 const SYSCO_DOMAINS = new Set(
   [
@@ -52,10 +56,6 @@ const SYSCO_DOMAINS = new Set(
   ].map((domain) => domain.trim().toLowerCase())
 );
 
-const ODFL_DOMAINS = new Set(
-  ['@odfl.com'].map((domain) => domain.trim().toLowerCase())
-);
-
 function getEnvironmentIdFromUsername(username: string) {
   const usernameLower = username.toLowerCase();
   const domain = '@' + (usernameLower.split('@').pop() || '');
@@ -79,6 +79,21 @@ const getEndpointByEnvironmentId = (environmentId: EnvironmentId) => {
   return environmentEndpoints[environmentId];
 };
 
+/**
+ * Logs in a user asynchronously using their username and password.
+ *
+ * The function identifies the user's environment by extracting the domain from the username
+ * and fetching the relevant API endpoint. It then sends a POST request to '/Logon/UserLogin'
+ * with the user credentials.
+ *
+ * If the login fails (indicated by no response or a non-zero response code), an error is thrown
+ * with the response message.
+ *
+ * Upon successful login, a session object is created with the session ID and environment ID,
+ * which is then validated and returned.
+ *
+ * @throws {Error} If the login is unsuccessful.
+ */
 async function login(username: string, password: string): Promise<Session> {
   const environmentId = getEnvironmentIdFromUsername(username);
   const endpointUrl = getEndpointByEnvironmentId(environmentId);
